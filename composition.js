@@ -5,6 +5,12 @@ function barker (state) {
   }
 }
 
+function doubler (state) {
+  return function () {
+    return state.speed * 2;
+  }
+}
+
 function driver (state) {
   return function () {
     console.log('Driving at ' + state.speed + ' mph');
@@ -36,9 +42,20 @@ function CatchingRobotDog (name) {
     position: 0
   };
 
+  function getSpeed () {
+    return state.speed;
+  }
+
+  function setSpeed (speed) {
+    state.speed = speed;
+  }
+
   return {
     bark: barker(state),
-    drive: driver(state)
+    drive: driver(state),
+    doubleSpeed: doubler(state),
+    getSpeed: getSpeed,
+    setSpeed: setSpeed
   };
 }
 

@@ -22,3 +22,6 @@ spot.eat();
 var speedyBot = c_ex.CatchingRobotDog('speedyBot');
 speedyBot.bark();
 speedyBot.drive();
+
+speedyBot.setSpeed(speedyBot.doubleSpeed());
+speedyBot.drive();
