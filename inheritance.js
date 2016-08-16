@@ -6,9 +6,9 @@ Animal.prototype.eat = function () {
 }
 
 function Dog (name) {
-  Animal.call(this, name);
+  this.name = name;
 }
-// Inherit
+// Inherit, use Object.create to avoid calling Animal's constructor
 Dog.prototype = Object.create(Animal.prototype);
 // Redefine base constructor
 Dog.prototype.constructor = Dog;
