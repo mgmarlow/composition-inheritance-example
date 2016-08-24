@@ -1,26 +1,33 @@
-function Animal (name) {
-  this.name = name; 
-}
-Animal.prototype.eat = function () {
-  console.log('eating');
-}
-
-function Dog (name) {
+function Employee (name) {
   this.name = name;
 }
-// Inherit, use Object.create to avoid calling Animal's constructor
-Dog.prototype = Object.create(Animal.prototype);
-// Redefine base constructor
-Dog.prototype.constructor = Dog;
+Employee.prototype.sayName = function () {
+  console.log(this.name);
+}
 
-Dog.prototype.bark = function () {
-  console.log('bark bark, my name is: ' + this.name);
+
+function Engineer (name) {
+  this.name = name;
+  this.performRole = function () {
+    console.log('Coding...');
+  }
 }
-// Override
-Dog.prototype.eat = function () {
-  console.log('new eating');
+Engineer.prototype = Object.create(Employee.prototype);
+Engineer.prototype.constructor = Engineer;
+
+function Manager (name) {
+  this.name = name;
+  this.performRole = function () {
+    console.log('Managing...');
+  }
 }
+Manager.prototype = Object.create(Employee.prototype);
+Manager.prototype.constructor = Manager;
+
+// Employees
+var bob = new Engineer('Bob');
+var david = new Manager('David');
 
 // Node exports
-exports.Animal = Animal;
-exports.Dog = Dog;
+exports.Manager = Manager;
+exports.Engineer = Engineer;
