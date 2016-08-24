@@ -49,14 +49,12 @@ var bob = Employee.create({
   roles: [Engineer]
 });
 
-var michelle = Employee.create({ name: 'Michelle' });
-michelle.roles = [Manager];
-
-var david = Employee.create({ name: 'David' });
-david.roles = [Engineer, Manager];
+var michelle = Employee.create({ 
+  name: 'Michelle',
+  roles: [Engineer, Manager]
+});
 
 
 // Node module exports
 exports.engineer = bob;
-exports.manager = michelle;
-exports.mangineer = david;
+exports.mangineer = michelle;
