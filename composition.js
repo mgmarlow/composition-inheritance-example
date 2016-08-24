@@ -1,64 +1,62 @@
-// Functionality
-function barker (state) {
-  return function () {
-    console.log('bark bark, my name is: ' + state.name);
+var Employee = {
+  create: function (state) {
+    var instance = Object.create(this);
+    Object.keys(state).forEach(function (key) {
+      instance[key] = state[key];
+    });
+    return instance;
+  },
+  sayName: function () {
+    console.log(this.name);
+  },
+  doJob: function () {
+    return this.roles.forEach(function (role) {
+      role.perform();
+    });
   }
 }
 
-function doubler (state) {
-  return function () {
-    return state.speed * 2;
+var Role = {
+  create: function (state) {
+    var instance = Object.create(this);
+    instance.roleName = state.roleName
+    instance.perform = state.perform
+    return instance;
+  },
+  getRole: function () {
+    console.log(this.role);
   }
 }
 
-function driver (state) {
-  return function () {
-    console.log('Driving at ' + state.speed + ' mph');
+// Define Role Types
+var Engineer = Role.create({
+  roleName: 'Engineer',
+  perform: function () {
+    console.log('Coding...');
   }
-}
-
-function eater () {
-  return function () {
-    console.log('eating...');
+});
+var Manager = Role.create({
+  roleName: 'Manager',
+  perform: function () {
+    console.log('Managing...');
   }
-}
+});
 
-// Composed objects
-function Dog (name) {
-  var state = {
-    name: name
-  };
 
-  return {
-    eat: eater(),
-    bark: barker(state)
-  };
-}
+// Create our Employees
+var bob = Employee.create({
+  name: 'Bob',
+  roles: [Engineer]
+});
 
-function CatchingRobotDog (name) {
-  var state = {
-    name: name,
-    speed: 100,
-    position: 0
-  };
+var michelle = Employee.create({ name: 'Michelle' });
+michelle.roles = [Manager];
 
-  function getSpeed () {
-    return state.speed;
-  }
+var david = Employee.create({ name: 'David' });
+david.roles = [Engineer, Manager];
 
-  function setSpeed (speed) {
-    state.speed = speed;
-  }
 
-  return {
-    bark: barker(state),
-    drive: driver(state),
-    doubleSpeed: doubler(state),
-    getSpeed: getSpeed,
-    setSpeed: setSpeed
-  };
-}
-
-// Node exports
-exports.Dog = Dog;
-exports.CatchingRobotDog = CatchingRobotDog;
+// Node module exports
+exports.engineer = bob;
+exports.manager = michelle;
+exports.mangineer = david;
