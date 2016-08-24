@@ -19,8 +19,8 @@ var Employee = {
 var Role = {
   create: function (state) {
     var instance = Object.create(this);
-    instance.roleName = state.roleName
-    instance.perform = state.perform
+    instance.roleName = state.roleName;
+    instance.perform = state.perform;
     return instance;
   },
   getRole: function () {
